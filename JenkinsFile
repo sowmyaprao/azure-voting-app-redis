@@ -1,1 +1,26 @@
-
+node {
+    
+    withEnv([
+        acsDeploy azureCredentialsId: 'ed03dd44-3b8a-49cd-b040-36fdd2ea56e0', 
+        configFilePaths: '~/kube/config', 
+        containerService: 'example-aks1 | AKS', 
+    ]){  
+        stage('Preparation') {
+            deleteDir() 
+            
+            def buildStatus = 'STARTED'
+            
+            checkout scm 
+                checkout([$class: 'GitSCM', branches: [[name: master ]], 
+                    doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+                    extensions: [], submoduleCfg: [], 
+                    userRemoteConfigs: [[url: "git@github.com:${repo}.git"]]])
+            }
+            stage('Deploy'){
+            def workDir=''
+            sh(returnStdout: true, script: """             
+            kubectl apply azure-voting-app-redis.yaml
+            """)) 
+                        } 
+            }
+        }
