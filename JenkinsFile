@@ -1,7 +1,9 @@
         acsDeploy 
-        {azureCredentialsId: 'ed03dd44-3b8a-49cd-b040-36fdd2ea56e0', 
-        configFilePaths: '~/kube/config', 
-        containerService: 'example-aks1 | AKS'}
+        {azureCredentialsId: "ed03dd44-3b8a-49cd-b040-36fdd2ea56e0", 
+        configFilePaths: "~/kube/config", 
+        containerService: "example-aks1 | AKS"
+        resourceGroup: "example-resource"
+        }
         {  
         stage('Preparation') {
             deleteDir() 
